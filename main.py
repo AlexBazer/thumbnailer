@@ -60,7 +60,7 @@ app = Flask(__name__)
 #def index():
 #    return render_template("index.html")
 
-@app.route('/thumbnails/<int:width>/<int:height>/<image>', defaults={'mode': 'fit'})
+#@app.route('/thumbnails/<int:width>/<int:height>/<image>', defaults={'mode': 'fit'})
 @app.route('/thumbnails/<mode>/<int:width>/<int:height>/<image>')
 def thumbnail(width, height, image, mode):
     image_path = os.path.join(MEDIA_ROOT, image)
