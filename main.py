@@ -61,16 +61,12 @@ app = Flask(__name__)
 #    return render_template("index.html")
 
 @app.route('/thumbnails/<int:width>/<int:height>/<image>', defaults={'mode': 'fit'})
-@app.route('/thumbnails/<int:width>/<int:height>/<image>/<mode>')
+@app.route('/thumbnails/<mode>/<int:width>/<int:height>/<image>')
 def thumbnail(width, height, image, mode):
     image_path = os.path.join(MEDIA_ROOT, image)
 
-    if mode == 'scale':
-        thumbnail_path = os.path.join(MEDIA_ROOT, THUMBNAILS_DIRECTORY, str(mode), str(width), str(height), image)
-        thumbnail_url = url_for('.thumbnail', **{'image': image, 'width': width, 'height': height, 'mode': mode})
-    else:
-        thumbnail_path = os.path.join(MEDIA_ROOT, THUMBNAILS_DIRECTORY, str(width), str(height), image)
-        thumbnail_url = url_for('.thumbnail', **{'image': image, 'width': width, 'height': height})
+    thumbnail_path = os.path.join(MEDIA_ROOT, THUMBNAILS_DIRECTORY, str(mode), str(width), str(height), image)
+    thumbnail_url = url_for('.thumbnail', **{'image': image, 'width': width, 'height': height, 'mode': mode})
 
     # if settings.DEBUG and os.path.exists(thumbnail_path):
     #     document_root, path = os.path.split(thumbnail_path)
