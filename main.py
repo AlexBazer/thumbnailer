@@ -67,10 +67,10 @@ def thumbnail(width, height, image, mode):
 
     if mode == 'scale':
         thumbnail_path = os.path.join(MEDIA_ROOT, THUMBNAILS_DIRECTORY, str(mode), str(width), str(height), image)
-        thumbnail_url = url_for('.thumbnail', kwargs={'image': image, 'width': width, 'height': height, 'mode': mode})
+        thumbnail_url = url_for('.thumbnail', **{'image': image, 'width': width, 'height': height, 'mode': mode})
     else:
         thumbnail_path = os.path.join(MEDIA_ROOT, THUMBNAILS_DIRECTORY, str(width), str(height), image)
-        thumbnail_url = url_for('.thumbnail', kwargs={'image': image, 'width': width, 'height': height})
+        thumbnail_url = url_for('.thumbnail', **{'image': image, 'width': width, 'height': height})
 
     # if settings.DEBUG and os.path.exists(thumbnail_path):
     #     document_root, path = os.path.split(thumbnail_path)
@@ -148,4 +148,4 @@ def add_tasks():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run()
+    app.run('0.0.0.0')
