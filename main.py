@@ -133,9 +133,8 @@ def add_tasks():
             'message': e.message
         })
 
-    result = group([
-        tasks.download_image.s(item['url'], item['path']) for item in data['urls']
-    ]).apply_async()
+    result = tasks.download_image.chunks(((item['url'], item['path']) for item in data['urls']), len(data['urls'])/1000).apply_async()
+
     result.save()
 
     return json.dumps({
