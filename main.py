@@ -133,7 +133,7 @@ def add_tasks():
             'message': e.message
         })
 
-    result = tasks.download_image.chunks(((item['url'], item['path']) for item in data['urls']), len(data['urls'])/1000).apply_async()
+    result = tasks.download_image.chunks(((item['url'], item['path']) for item in data['urls']), 1000).apply_async()
 
     result.save()
 
