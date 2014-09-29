@@ -78,10 +78,7 @@ def thumbnail(width, height, image, mode):
 
     img = Image.open(image_path)
 
-    if img.size[0] > 2 * width or img.size[1] > 2 * height:
-        method = Image.ANTIALIAS
-    else:
-        method = Image.NEAREST
+    method = Image.ANTIALIAS
 
     ensure_directory_exists(thumbnail_path)
 
