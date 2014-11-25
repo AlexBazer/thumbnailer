@@ -84,10 +84,17 @@ def thumbnail(width, height, image, mode):
 
     if mode == 'fit':
         thmb = ImageOps.fit(img, (width, height), method)
-        thmb.save(thumbnail_path, quality=100, optimize=True, progressive=True)
+        try:
+            thmb.save(thumbnail_path, quality=100, optimize=True, progressive=True)
+        except KeyError:
+            thmb.save(thumbnail_path, format=img.format, quality=100, optimize=True, progressive=True)
+
     elif mode == 'scale':
         img.thumbnail((width, height), method)
-        img.save(thumbnail_path, quality=100, optimize=True, progressive=True)
+        try:
+            img.save(thumbnail_path, quality=100, optimize=True, progressive=True)
+        except KeyError:
+            img.save(thumbnail_path, format=img.format, quality=100, optimize=True, progressive=True)
 
     return redirect(thumbnail_url)
 
